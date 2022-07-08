@@ -1,7 +1,15 @@
+ion-button{
+  --background: lightgrey;
+}
+
+ion-content{
+  --background: #8888e7;
+}
 
 ion-slides{
+  margin: 20px 20px 20px 20px;
   height: 100%;
-  background-color:#858589;
+  background-color:#7d7dec;
   max-width: 800px;
 }
 
@@ -13,27 +21,31 @@ ion-slides{
 
 ion-slide > h1, h2{
   margin: 20px 20px 20px 20px;
-  color: rgb(3, 15, 26);
-  border-color: rgb(66, 29, 29);
-  border-style: dotted;
+  color: var(--slide-border-color);
+  border-color: var(--slide-border-color);
+  border-style: solid;
+}
+
+ion-slide > h2{
+  font-style: oblique;
+  font-size: 17px;
 }
 
 ion-slide > p{
   font-style: oblique;
   font-size: 18px;
+  color:var(--slide-icon-close-color);
   padding: 20px 20px 20px 20px;
   padding: 10px 10px 10px 10px;
-  border-color: rgb(66, 29, 29);
-  border-style: dotted;
 }
 
 ion-slide > ion-icon{
-  color:blue;
+  color: var(--slide-icon-color);
   font-size: 40px;
 }
 
 ion-slide > ion-icon[name="close"]{
   float: right;
-  color: black;
+  color: var(--slide-icon-close-color);
   font-size: 40px;
 }
