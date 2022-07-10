@@ -18,26 +18,33 @@ export class IntroPage implements OnInit{
 
   slides = [
     {
-      titulo: "Titulo1",
-      subtitulo: "Subtitulo1",
+      titulo: "PlayerPro",
+      subtitulo: "Gracias por descargar nuestra aplicación de música!",
+      icono: "play-circle-outline",
+      imagen: "assets/Images/slide4.jpg",
+      descripcion: "PlayerPro es un conjunto de 3 aplicaciones que pueden funcionar tanto juntas como individualmente, combinando sus funciones para utilizarlas todas a la vez o poder utiliar individualmente cada una para lo que requiera ustes, el usuario :)"
+    },
+    {
+      titulo: "Bienvenido a PlayerPro!",
+      subtitulo: "Primera Aplicación de PlayerPro",
       icono: "musical-notes-outline",
       imagen: "assets/Images/slide1.jpg",
-      descripcion: "Descripcion1"
+      descripcion: "PlayerPro Green, la principal aplicación de PlayerPro sobre la cual se pueden agregar las demás. PPG saca toda su información de internet y necesitas estar conectado para escuchar música."
     },
     {
-      titulo: "Titulo2",
-      subtitulo: "Subtitulo2",
+      titulo: "Explorando PlayerPro",
+      subtitulo: "Segunda Aplicación de PlayerPro",
       icono: "musical-note-outline",
       imagen: "assets/Images/slide2.jpg",
-      descripcion: "Descripcion2"
+      descripcion: "PlayerPro Red, la expansión de PPG para uso local. Esta versión te permite almacenar la música en tu dispositivo y trabaja fuera de conexión a internet."
     },
     {
-      titulo: "Titulo3",
-      subtitulo: "Subtitulo3",
+      titulo: "Descubriendo PlayerPro",
+      subtitulo: "Tercera Aplicación de PlayerPro",
       icono: "play-outline",
       imagen: "assets/Images/slide3.jpg",
-      descripcion: "Descripcion3"
-    }
+      descripcion: "PlayerPro Blue, es la expansión de PPG que introduce la capacidad de relacionarse con otros usuarios, interactuar con amigos, crear grupos para escuchar playlists creadas por un usurio, entre muchsa otras opciones que encontrará en la aplicación."
+    },
   ]
 
 

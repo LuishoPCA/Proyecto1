@@ -1,1 +1,43 @@
-<ion-content><h1>Hola, soy el home</h1></ion-content>
+<ion-content>
+    <ion-app>
+        <div>
+            <ng-container *ngFor="let menu of menu">
+                <ion-menu side="start" menuId="first" contentId="main">
+                    <ion-header>
+                      <ion-toolbar color="secondary">
+                          <ion-title>{{menu.titulo}}</ion-title>
+                      </ion-toolbar>
+                    </ion-header>
+          
+                    <ion-content>
+                      <ion-list class="ion-list-menu">
+                        <ion-item>{{menu.item1}}</ion-item>
+                        <ion-item>{{menu.item2}}</ion-item>
+                        <ion-item>{{menu.item3}}</ion-item>
+                        <ion-item>{{menu.item4}}</ion-item>
+                        <ion-item>{{menu.item5}}</ion-item>
+                      </ion-list>
+                    </ion-content>
+                  </ion-menu>
+            </ng-container>
+        </div>
+        
+        <div class="ion-page" id="main">
+            <ion-content class="ion-padding">
+                <ion-menu-toggle>
+                    <ion-button><ion-icon name="menu-outline"></ion-icon></ion-button>
+                </ion-menu-toggle>
+                <ng-container *ngFor="let home of home">
+                    <h1 class="home-titulo">{{home.titulo}}</h1>
+                    <h1>{{home.recomendaciones}}</h1>
+                    <ion-slides pager="true" [options]="slideOpt">
+                        <ion-slide *ngFor="let slideHome of slidesHome">
+                            <h1>{{slideHome.titulo}}</h1>
+                            <img src={{slideHome.imagen}}/>
+                        </ion-slide>
+                    </ion-slides>
+                </ng-container>
+            </ion-content>
+        </div>
+      </ion-app>
+</ion-content>
