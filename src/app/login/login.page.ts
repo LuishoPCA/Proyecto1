@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { AuthenticateService } from '../services/authenticate.service';
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: 'app-login',
@@ -25,8 +28,14 @@ export class LoginPage implements OnInit {
     
   }
 
+  errorMessage: String;
   
-  constructor(private formBuilder: FormBuilder) { 
+  constructor(private formBuilder: FormBuilder, 
+    private authService: AuthenticateService, 
+    private navCtrl: NavController,
+    private storage: Storage) { 
+
+    this.storage.create();
     this.loginForm = this.formBuilder.group({
       email: new FormControl(
         "",
@@ -60,6 +69,20 @@ export class LoginPage implements OnInit {
    setTimeout(() => {
        nativeEl.setSelectionRange(inputSelection, inputSelection);
    }, 1);
+  }
 
-}
+  loginUser(credentials){
+    this.authService.loginUser(credentials).then( res => {
+      this.errorMessage = "";
+      this.storage.set("isUserLoggedIn", true);
+      this.navCtrl.navigateForward("/home")
+    }).catch(err => {
+      this.errorMessage = err;
+    })
+  }
+
+  goToRegister(){
+    this.navCtrl.navigateForward("/register");
+  }
+
 }

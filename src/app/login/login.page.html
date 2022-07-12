@@ -54,8 +54,12 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Ingresar</ion-button>
+        <ion-button type="submit" color="success" expand="block" [disabled]="!loginForm.valid">Ingresar</ion-button>
       </ion-col>
     </ion-row>
   </form>
+  {{errorMessage}}
 </ion-content>
+<ion-footer>
+  <ion-button color="danger" expand="block" (click)="goToRegister()">Registrarse</ion-button>
+</ion-footer>
