@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MusicService } from '../services/music.service';
+import { ModalController } from '@ionic/angular';
+import { SongsModalPage } from '../songs-modal/songs-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -6,47 +9,104 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  slideOpt={
-    initialSlide: 0, //Slide inicial
-    slidesPerView: 1, //Slide por vista
-    centeredSlide: true, //Que las Slides esten centradas
-    speed: 400 //Velocidad de transición de cada Slide en milisegundos
+
+  artists: any;
+  artistsFromJson: any;
+  albums: any;
+  test:any;
+  currentSong;
+  newTime;
+
+  slideOps = {
+    initialSlide: 1,
+    slidesPerView: 3,
+    centeredSlides: true,
+    speed: 400
   }
 
-  constructor() {
-    
+  song = {
+    playing: false,
+    name: '',
+    preview_url: ''
   }
   
-  menu = [
-    {
-      titulo: "Menu",
-      item1: "Biblioteca",
-      item2: "Buscar",
-      item3: "Perfil",
-      item4: "Configuración",
-      item5: "Ayuda",
-    }
-  ]
+  constructor(
+    private musicService: MusicService,
+    private modalController: ModalController) {}
 
-  home = [
-    {
-      titulo: "PlayerPro",
-      recomendaciones: "Recomendaciones: "
-    }
-  ]
+  ionViewDidEnter(){
+    //Lista artistas api
+    this.musicService.getArtists().then(listArtists =>{
+      this.artists = listArtists;
+    });
+    //Lista artistas apijson. NO SE COMO MOSTRARLO
+    this.artistsFromJson = this.musicService.getArtistsFromJson();
+    this.test = this.artistsFromJson;
+    console.log(this.artistsFromJson.artists)
+    
+    //albums api
+    this.musicService.getAlbums().then(listAlbums =>{
+      this.albums = listAlbums;
+    })
+  }
 
-  slidesHome = [
-    {
-      titulo: "Rock",
-      imagen: "assets/Images/acdc.jpg"
-    },
-    {
-      titulo: "Metal",
-      imagen: "assets/Images/metallica.png"
-    },
-    {
-      titulo: "Pop",
-      imagen: "assets/Images/backstreetboys.jpg"
+  async showArtistSongs(artist){
+    const songs = await this.musicService.getArtistTracks(artist.id);
+    const modal = await this.modalController.create({
+      component: SongsModalPage,
+      componentProps:{
+        songs: songs,
+        artist: artist.name
+      }
+    });
+    modal.onDidDismiss().then( dataReturned => {
+      this.song = dataReturned.data
+    })
+    return await modal.present();
+  }
+
+  async showAlbumSongs(album){
+    const songs = await this.musicService.getArtistTracks(album.id);
+    const modal = await this.modalController.create({
+      component: SongsModalPage,
+      componentProps:{
+        songs: songs,
+        artist: album.name
+      }
+    });
+    modal.onDidDismiss().then( dataReturned => {
+      this.song = dataReturned.data
+    })
+    return await modal.present();
+  }
+
+  play() {
+    this.currentSong = new Audio(this.song.preview_url);
+    this.currentSong.play();
+    this.currentSong.addEventListener("timeupdate", () => {
+      this.newTime = (1 / this.currentSong.duration ) * this.currentSong.currentTime;
+    })
+    this.song.playing = true;
+  }
+
+  pause() {
+    this.currentSong.pause();
+    this.song.playing = false;
+  }
+
+
+  parseTime( time = "0.00") {
+    if (time) {
+      const partTime = parseInt(time.toString().split(".")[0], 10);
+      let minutes = Math.floor(partTime / 60 ).toString();
+      if (minutes.length == 1) {
+        minutes = "0" + minutes;
+      }
+      let seconds = (partTime % 60 ).toString();
+      if (seconds.length == 1) {
+        seconds = "0" + seconds;
+      }
+      return minutes + ":" + seconds
     }
-  ]
+  }
 }

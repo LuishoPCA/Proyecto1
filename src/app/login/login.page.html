@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <form [formGroup]="loginForm"(ngSubmit)="loginUser(loginForm.value)">
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
     <ion-item lines="none">
       <ion-label position="floating" class="dato">Email</ion-label>
       <ion-input  class="dato" formControlName="email"></ion-input>
@@ -54,12 +54,22 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="success" expand="block" [disabled]="!loginForm.valid">Ingresar</ion-button>
+        <ion-button 
+        type="submit" 
+        color="success" 
+        expand="block" 
+        [disabled]="!loginForm.valid"
+        >Ingresar</ion-button>
       </ion-col>
     </ion-row>
   </form>
   {{errorMessage}}
 </ion-content>
+
 <ion-footer>
-  <ion-button color="danger" expand="block" (click)="goToRegister()">Registrarse</ion-button>
+  <ion-button 
+  color="danger" 
+  expand="block" 
+  (click)="goToRegister()"
+  >Registrarse</ion-button>
 </ion-footer>

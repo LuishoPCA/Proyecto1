@@ -1,0 +1,35 @@
+<ion-split-pane contentId="content">
+  <ion-menu contentId="content" side="end">
+    <ion-header>
+      <ion-toolbar>
+        <ion-tittle>
+          Menu
+        </ion-tittle>
+        <ion-buttons slot="start">
+          <ion-button icon-only (click)="closeMenu()">
+            <ion-icon name="arrow-back" size="large"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 1</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 2</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 3</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 4</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 5</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 6</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 7</ion-item>
+        <ion-item><ion-icon name="log-out-outline" size="large"></ion-icon>Funcion 8</ion-item>
+      </ion-list>
+      <ion-footer>
+        <ion-item (click)="logout()">
+          <ion-icon name="log-out-outline" size="large"></ion-icon>
+          Cerrar sesión
+        </ion-item>
+      </ion-footer>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</ion-split-pane>

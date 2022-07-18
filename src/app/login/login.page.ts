@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
   passwordEye: ElementRef;
   passwordTypeInput  =  'password';
   loginForm: FormGroup;
+  
   validation_messages={
     email:[
       {type: "required", message:"El Email es obligatorio. "},
@@ -75,7 +76,7 @@ export class LoginPage implements OnInit {
     this.authService.loginUser(credentials).then( res => {
       this.errorMessage = "";
       this.storage.set("isUserLoggedIn", true);
-      this.navCtrl.navigateForward("/home")
+      this.navCtrl.navigateForward("/menu")
     }).catch(err => {
       this.errorMessage = err;
     })
