@@ -14,7 +14,7 @@ export class HomePage {
   artistsFromJson: any;
   albums: any;
   test:any;
-  currentSong;
+  currentSong: HTMLAudioElement;
   newTime;
 
   slideOps = {
