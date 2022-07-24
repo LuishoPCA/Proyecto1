@@ -28,6 +28,14 @@ const routes: Routes = [
   {
     path: 'songs-modal',
     loadChildren: () => import('./songs-modal/songs-modal.module').then( m => m.SongsModalPageModule)
+  },
+  {
+    path: 'search-modal',
+    loadChildren: () => import('./search-modal/search-modal.module').then( m => m.SearchModalPageModule)
+  },
+  {
+    path: 'update-modal',
+    loadChildren: () => import('./update-modal/update-modal.module').then( m => m.UpdateModalPageModule)
   }
 ];
 

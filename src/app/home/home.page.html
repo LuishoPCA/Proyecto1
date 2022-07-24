@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="openSearchModal()"><ion-icon name="search-outline"></ion-icon></ion-button>
+      </ion-buttons>
       <ion-buttons slot="end">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
@@ -27,12 +30,14 @@
       <ion-slide *ngFor="let album of albums">
         <ion-avatar (click)="showAlbumSongs(album)" class="square-avatar">
           <img src={{album.image}} />
+          <br>
           <span>{{album.name}}</span>
         </ion-avatar>
       </ion-slide>
     </ion-slides>
 
     <h1>Artistas Json</h1>
+    
     <ion-slides [options]="slideOps">
       <ion-slide *ngFor="let artists of test">
         <ion-avatar>

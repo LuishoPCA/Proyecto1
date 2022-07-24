@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authenticate.service';
 import { Storage } from "@ionic/storage";
 
@@ -34,7 +34,8 @@ export class LoginPage implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private authService: AuthenticateService, 
     private navCtrl: NavController,
-    private storage: Storage) { 
+    private storage: Storage,
+    private alertController: AlertController) { 
 
     this.storage.create();
     this.loginForm = this.formBuilder.group({
@@ -59,7 +60,8 @@ export class LoginPage implements OnInit {
 
   togglePasswordMode() {
     //cambiar tipo input
-  this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
+  this.passwordTypeInput = this.passwordTypeInput === 'text' 
+  ? 'password' : 'text';
    //obtener el input
    const nativeEl = this.passwordEye.nativeElement.querySelector('input');
    //obtener el indice de la posición del texto actual en el input
@@ -73,13 +75,23 @@ export class LoginPage implements OnInit {
   }
 
   loginUser(credentials){
-    this.authService.loginUser(credentials).then( res => {
-      this.errorMessage = "";
+    this.authService.loginUser(credentials).then( (res: any) => {
       this.storage.set("isUserLoggedIn", true);
+      this.storage.set("user_id", res.user.id)
       this.navCtrl.navigateForward("/menu")
     }).catch(err => {
-      this.errorMessage = err;
+      this.presentAlert("Oops!", "Hubo un error", err)
     })
+  }
+
+  async presentAlert(header, subHeader, message){
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   goToRegister(){

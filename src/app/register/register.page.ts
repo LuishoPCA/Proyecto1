@@ -1,6 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AuthenticateService } from '../services/authenticate.service';
 
@@ -11,7 +12,8 @@ import { AuthenticateService } from '../services/authenticate.service';
 })
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
-
+  registerResult: boolean = true;
+  errMessage;
   validation_messages={
     name:[
       {type: "required", message:"El nombre es obligatorio. "},
@@ -27,14 +29,14 @@ export class RegisterPage implements OnInit {
       {type: "required", message:"La contraseña es obligatoria. "},
       {type: "minlength", message:"La contraseña es mínimo de 6 caracteres. "}
     ]
-    
   }
 
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private storage: Storage,
-    private authService: AuthenticateService
+    private authService: AuthenticateService,
+    private alertController: AlertController
   ) 
   { 
     this.registerForm = this.formBuilder.group({
@@ -44,7 +46,7 @@ export class RegisterPage implements OnInit {
           Validators.required
         ])
       ),
-      lastname: new FormControl(
+      last_name: new FormControl(
         "",
         Validators.compose([
           Validators.required
@@ -69,13 +71,29 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  register(registerFormValues){
-    this.authService.registerUser(registerFormValues).then(() => {
+  register(registerFormValues) {
+    this.authService.registerUser(registerFormValues).then( (data) => {
+      this.errMessage="";
       this.navCtrl.navigateBack("/login");
+      this.presentAlert("Exito", "Usuario registrado exitosamente",this.errMessage);
+    }).catch(err =>{
+      this.presentAlert("Oops", "Hubo un error", err)
+    })
+  }
+
+  async presentAlert(header, subHeader, message){
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
     });
+    await alert.present();
   }
 
   goToLogin() {
-    this.navCtrl.navigateBack("/login")
+    this.navCtrl.navigateBack("/login").then((resp) => {
+      console.log(resp)
+    })
   }
 }
