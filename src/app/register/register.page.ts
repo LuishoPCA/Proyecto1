@@ -14,11 +14,12 @@ export class RegisterPage implements OnInit {
   registerForm: FormGroup;
   registerResult: boolean = true;
   errMessage;
+  claveEncrip;
   validation_messages={
     name:[
       {type: "required", message:"El nombre es obligatorio. "},
     ],
-    lastname:[
+    last_name:[
       {type: "required", message:"El apellido es obligatorio. "},
     ],
     email:[
