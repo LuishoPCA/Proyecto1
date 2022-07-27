@@ -10,6 +10,7 @@ import {artists} from '../services/artists.json';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
 
   artists: any;

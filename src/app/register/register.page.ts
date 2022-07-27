@@ -2,7 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@capacitor/storage';
 import { AuthenticateService } from '../services/authenticate.service';
 
 @Component({
@@ -35,7 +35,6 @@ export class RegisterPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private storage: Storage,
     private authService: AuthenticateService,
     private alertController: AlertController
   ) 

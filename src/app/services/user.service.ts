@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
@@ -15,7 +14,7 @@ export class UserService {
   searching = false;
   text="busque usuario";
 
-  constructor(private storage: Storage, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getCurrentUser(id){
     return this.http.get(`${this.url_server}current_user/${id}`, this.httpOptions)

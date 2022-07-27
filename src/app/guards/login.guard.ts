@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Storage } from "@ionic/storage";
+import { Storage } from '@capacitor/storage';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginGuard implements CanActivate {
-  constructor(private storage: Storage, private router: Router){
-    this.storage.create();
+  constructor(private router: Router) {
+  }
+
+  async canActivate() {
+    const isUserLoggedIn = await Storage.get({key: "isUserLoggedIn"});
+    if ( isUserLoggedIn ) {
+      return true;
+    } else {
+      this.router.navigateByUrl("/login");
+    }
+    
   }
   
-  async canActivate(){
-   const isUserLoggedIn = await this.storage.get("isUserLoggedIn")
-   if(isUserLoggedIn){
-    return true;
-   }else{
-    this.router.navigateByUrl("/login");
-   }
-  }
 }

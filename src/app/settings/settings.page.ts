@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import {Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AuthenticateService } from '../services/authenticate.service';
-import { Storage } from "@ionic/storage";
+import { Storage } from '@capacitor/storage';
 import { AlertController, NavController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { UpdateModalPage } from '../update-modal/update-modal.page';
@@ -36,16 +36,15 @@ export class SettingsPage implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private authService: AuthenticateService,
-    private storage: Storage,
     private alertController: AlertController,
     private navCtrl: NavController,
     private modalController: ModalController,
     private userService: UserService) {
-      this.storage.create();
      }
 
   async ngOnInit() {
-    this.user_id = await this.storage.get("user_id")
+    const { value } = await Storage.get({key: "user_id"})
+    this.user_id = value
     await this.userService.getCurrentUser(this.user_id).subscribe((data: any)=> {
       this.user.email = data.email
       this.user.name = data.name

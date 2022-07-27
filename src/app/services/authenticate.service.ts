@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@capacitor/storage';
 
 
 @Injectable({
@@ -18,8 +18,7 @@ export class AuthenticateService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json', observe: 'response' })
   };
 
-  constructor(private storage: Storage, private http: HttpClient, private alertController: AlertController) { 
-    this.storage.create();
+  constructor(private http: HttpClient, private alertController: AlertController) { 
   }
 
   loginUser(credentials){
