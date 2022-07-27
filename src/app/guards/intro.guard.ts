@@ -11,8 +11,8 @@ export class IntroGuard implements CanActivate {
   constructor( private router: Router) {
   }
   async canActivate(){
-    const isIntroShowed = await Storage.get({key: 'isIntroShowed'});
-    if(isIntroShowed){
+    const {value} = await Storage.get({key: 'isIntroShowed'});
+    if(value){
       return true
     } else {
       this.router.navigateByUrl('/intro');

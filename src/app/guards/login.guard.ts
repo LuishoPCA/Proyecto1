@@ -12,8 +12,8 @@ export class LoginGuard implements CanActivate {
   }
 
   async canActivate() {
-    const isUserLoggedIn = await Storage.get({key: "isUserLoggedIn"});
-    if ( isUserLoggedIn ) {
+    const {value} = await Storage.get({key: "isUserLoggedIn"});
+    if ( value == 'true' ) {
       return true;
     } else {
       this.router.navigateByUrl("/login");

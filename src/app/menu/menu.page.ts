@@ -24,6 +24,7 @@ export class MenuPage implements OnInit {
 
   logout(){
     Storage.set({key: "isUserLoggedIn", value: "false"});
+    Storage.remove({key: "user_id"});
     this.navCtrl.navigateRoot('/login')
   }
 
